@@ -11,7 +11,7 @@ using Unreal.Core.Models;
 
 
 Console.WriteLine("Hello, World!");
-var replayFile = "C:\\Users\\EloiStree\\Desktop\\FortniteReplay\\UnsavedReplay-2025.08.10-15.13.20.replay";
+var replayFile = "C:\\Users\\EloiStree\\Desktop\\FortniteReplay\\UnsavedReplay-2025.08.13-09.02.40.replay";
 var reader = new ReplayReader(parseMode: Unreal.Core.Models.Enums.ParseMode.Full);
 FortniteReplay replay = reader.ReadReplay(replayFile);
 
@@ -48,7 +48,9 @@ if (replay != null)
         allPathPosition.AppendLine("PLAYER_KILLS:" + playerData.Kills);
         allPathPosition.AppendLine("PLAYER_TOP:" + playerData.Placement);
         var death = playerData.DeathLocation;
-        allPathPosition.AppendLine($"PLAYER_DEATH_POSITION:{death.X} {death.Y} {death.Z}");
+        if (death != null) { 
+            allPathPosition.AppendLine($"PLAYER_DEATH_POSITION:{death.X} {death.Y} {death.Z}");
+        }
         allPathPosition.AppendLine($"PLAYER_DEATH_TIME:{playerData.DeathTimeDouble}");
         if (m_playerKilled.ContainsKey(playerData.EpicId ?? ""))
         {
@@ -66,15 +68,17 @@ if (replay != null)
             mePath.AppendLine("Locations count:");
             mePath.AppendLine(playerData.Locations.Count.ToString());
             mePath.AppendLine("Path:");
-            foreach (var playerMovement in playerData.Locations) {
-                FVector location = playerMovement.ReplicatedMovement.Value.Location;
-                FRotator rotation = playerMovement.ReplicatedMovement.Value.Rotation;
-                mePath.AppendLine($"{playerMovement.LastUpdateTime}: Position=({location.X}, {location.Y}, {location.Z}), Rotation=({rotation.Pitch}, {rotation.Yaw}, {rotation.Roll})");
-                allPathPosition.AppendLine($"{playerMovement.LastUpdateTime} {location.X} {location.Y} {location.Z} {rotation.Pitch} {rotation.Yaw} {rotation.Roll}");
-            }
-           
 
-            
+
+
+
+        }
+        foreach (var playerMovement in playerData.Locations)
+        {
+            FVector location = playerMovement.ReplicatedMovement.Value.Location;
+            FRotator rotation = playerMovement.ReplicatedMovement.Value.Rotation;
+            mePath.AppendLine($"{playerMovement.LastUpdateTime}: Position=({location.X}, {location.Y}, {location.Z}), Rotation=({rotation.Pitch}, {rotation.Yaw}, {rotation.Roll})");
+            allPathPosition.AppendLine($"{playerMovement.LastUpdateTime} {location.X} {location.Y} {location.Z} {rotation.Pitch} {rotation.Yaw} {rotation.Roll}");
         }
         Console.WriteLine($"{playerData.PlayerName} ({playerData.Platform}) _ {playerData.PlayerId} _ {playerData.EpicId} ," +
             $"  {playerData.Cosmetics.Character}  , " +
