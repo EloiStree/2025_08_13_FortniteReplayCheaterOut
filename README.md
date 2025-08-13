@@ -1,3 +1,4 @@
-# 2025_08_13_FortniteReplayCheaterOut
-Fortnite is infested with cheater. It is a shame that 8/9 games are composed of 2-3 of them in ranked solo. Let's try to create tools to fight them.
-All thank and credit to https://github.com/Shiqan/FortniteReplayDecompressor , I am just using their code to export the info I need.
+2025_08_13_FortniteReplayCheaterOut
+Fortnite is currently overrun with cheaters. It’s frustrating that in ranked solo matches, 8 out of 9 games include 2–3 of them. My goal is to work on tools to help combat this issue.
+
+Full credit and thanks go to Shiqan/FortniteReplayDecompressor. I’m simply using their code to extract the data I need.
